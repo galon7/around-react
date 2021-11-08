@@ -1,14 +1,51 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./footer";
+import PopupWithForm from "./PopupWithForm";
+// import ImagePopup from "./ImagePopup";
+import React from "react";
 
 function App() {
+  const [isEditProfilePopupOpen, openEditProfilePopup] = React.useState(false);
+  const [isAddPlacePopupOpen, openAddPlacePopup] = React.useState(false);
+  const [isEditAvatarPopupOpen, openEditAvatarPopup] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    openEditAvatarPopup(true);
+  }
+
+  function handleEditProfileClick() {
+    openEditProfilePopup(true);
+  }
+
+  function handleAddPlaceClick() {
+    openAddPlacePopup(true);
+  }
+
+  function closeAllPopups() {
+    openEditAvatarPopup(false);
+    openEditProfilePopup(false);
+    openAddPlacePopup(false);
+  }
+
+  function handleImageClick() {}
+
   return (
     <div className="page">
       <div className="page__container">
         <Header />
-        <Main />
+        <Main
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCardClick={handleImageClick}
+          onClose={closeAllPopups}
+        />
         <Footer />
+        <PopupWithForm isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <PopupWithForm isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+        <PopupWithForm isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+
         <template id="elements-item" />
         <div className="modal modal_type_edit-profile">
           <div className="modal__container">
@@ -103,15 +140,6 @@ function App() {
                 Save
               </button>
             </form>
-          </div>
-        </div>
-        <div className="modal modal_img">
-          <div className="modal__container-img">
-            <button type="button" className="modal__close" />
-            <figure className="modal__figure">
-              <img src="#" alt="Selected card photo" className="modal__image" />
-              <figcaption className="modal__caption" />
-            </figure>
           </div>
         </div>
       </div>
