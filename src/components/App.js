@@ -9,7 +9,8 @@ function App() {
   const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
   const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(false);
+  const [isImagePopupOpen, openImagePopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   function handleEditProfileClick() {
     openEditProfilePopup(true);
@@ -27,11 +28,12 @@ function App() {
     openEditAvatarPopup(false);
     openEditProfilePopup(false);
     openAddPlacePopup(false);
-    setSelectedCard(false);
+    openImagePopup(false);
   }
 
   function handleCardClick(card) {
     setSelectedCard(card);
+    openImagePopup(true);
   }
 
   return (
@@ -120,7 +122,7 @@ function App() {
           <span id="profile-picture-link-error" className="modal__error-text"></span>
         </PopupWithForm>
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
       </div>
     </div>
   );
