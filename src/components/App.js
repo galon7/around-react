@@ -34,6 +34,10 @@ function App() {
     setSelectedCard(card);
   }
 
+  React.useEffect(() => {
+    document.body.style.backgroundColor = "black";
+  }, []);
+
   return (
     <div className="page">
       <div className="page__container">
