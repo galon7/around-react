@@ -1,4 +1,4 @@
-![AroundTheUs](./src/images/header.svg) ![React](https://img.icons8.com/officel/40/000000/react.png)
+![AroundTheUs](./src/images/header.svg) ![React](https://img.icons8.com/officel/30/000000/react.png)
 ## [The project on GitHub Pages](https://galon7.github.io/web_project_4/)
 
 # Getting Started with Create React App
