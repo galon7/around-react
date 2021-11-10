@@ -1,15 +1,15 @@
+import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
-import Footer from "./footer";
+import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
-import React from "react";
 
 function App() {
-  const [isEditProfilePopupOpen, openEditProfilePopup] = React.useState(false);
-  const [isAddPlacePopupOpen, openAddPlacePopup] = React.useState(false);
-  const [isEditAvatarPopupOpen, openEditAvatarPopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
+  const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
+  const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
   function handleEditProfileClick() {
     openEditProfilePopup(true);
@@ -33,10 +33,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
-
-  React.useEffect(() => {
-    document.body.style.backgroundColor = "black";
-  }, []);
 
   return (
     <div className="page">
