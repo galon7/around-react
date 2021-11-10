@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
+import editPng from "../images/edit-img.png";
 
 function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick }) {
   const [user, setUser] = useState("");
@@ -34,7 +35,7 @@ function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardCl
             className="profile__avatar"
             onClick={onEditAvatarClick}
           />
-          <img src="../images/edit-img.png" alt="Edit" className="profile__avatar-edit" />
+          <img src={editPng} alt="Edit" className="profile__avatar-edit" />
         </div>
         <div className="profile__info">
           <div className="profile__info-header">
