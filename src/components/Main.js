@@ -1,4 +1,5 @@
 import { api } from "../utils/api";
+import Card from "./Card";
 import React from "react";
 
 function Main(props) {
@@ -12,7 +13,6 @@ function Main(props) {
       .getInitialCards()
       .then((data) => {
         setCards(data);
-        console.log(data);
       })
       .catch((err) => console.log(`Error.....: ${err}`));
   }, []);
@@ -24,7 +24,6 @@ function Main(props) {
         setUserName(data.name);
         setUserDescription(data.about);
         setUserAvatar(data.avatar);
-        // userID = data._id;
       })
       .catch((err) => console.log(`Error.....: ${err}`));
   });
@@ -33,13 +32,13 @@ function Main(props) {
     <main>
       <section className="profile">
         <div>
-          <img src={userAvatar} alt="Current user" className="profile__avatar" />
           <img
-            src="../images/edit-img.png"
-            alt="Edit"
-            className="profile__avatar-edit"
+            src={userAvatar}
+            alt="Current user"
+            className="profile__avatar"
             onClick={props.onEditAvatarClick}
           />
+          <img src="../images/edit-img.png" alt="Edit" className="profile__avatar-edit" />
         </div>
         <div className="profile__info">
           <div className="profile__info-header">
@@ -56,17 +55,7 @@ function Main(props) {
       </section>
       <section className="elements">
         {cards.map((card) => (
-          <div key={card._id} className="elements__item">
-            <img src={card.link} alt="Card" class="elements__img" />
-            <button className="elements__delete-button"></button>
-            <div className="elements__content">
-              <h2 className="elements__title">{card.name}</h2>
-              <div className="elements__likes">
-                <button type="button" className="elements__like-button"></button>
-                <p className="elements__like-number">{card.likes.length}</p>
-              </div>
-            </div>
-          </div>
+          <Card key={card._id} card={card} onCardClick={props.onCardClick} />
         ))}
       </section>
     </main>
