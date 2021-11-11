@@ -4,7 +4,7 @@ import Card from "./Card";
 import editPng from "../images/edit-img.png";
 
 function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick }) {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
