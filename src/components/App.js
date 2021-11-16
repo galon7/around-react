@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { api } from "../utils/api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -11,6 +13,16 @@ function App() {
   const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
   const [isImagePopupOpen, openImagePopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [CurrentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => console.log(`Error.....: ${err}`));
+  });
 
   function handleEditProfileClick() {
     openEditProfilePopup(true);
@@ -37,94 +49,96 @@ function App() {
   }
 
   return (
-    <div className="page">
-      <div className="page__container">
-        <Header />
-        <Main
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onEditAvatarClick={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onClose={closeAllPopups}
-        />
-        <Footer />
-        <PopupWithForm
-          name="edit-profile"
-          title="Edit Profile"
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            className="modal__input modal__input_field_name"
-            id="name-input"
-            placeholder="Full name"
-            name="name"
-            minLength={2}
-            maxLength={40}
-            required
+    <CurrentUserContext.Provider value={CurrentUser}>
+      <div className="page">
+        <div className="page__container">
+          <Header />
+          <Main
+            onEditProfileClick={handleEditProfileClick}
+            onAddPlaceClick={handleAddPlaceClick}
+            onEditAvatarClick={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onClose={closeAllPopups}
           />
-          <span id="name-input-error" className="modal__error-text" />
-          <input
-            type="text"
-            className="modal__input modal__input_field_profession"
-            id="profession-input"
-            placeholder="Profession"
-            name="profession"
-            minLength={2}
-            maxLength={200}
-            required
-          />
-          <span id="profession-input-error" className="modal__error-text" />
-        </PopupWithForm>
-        <PopupWithForm
-          name="add-card"
-          title="New place"
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            className="modal__input modal__input_field_title"
-            id="card-title-input"
-            placeholder="Title"
-            name="Title"
-            minLength="1"
-            maxLength="30"
-            required
-          />
-          <span id="card-title-input-error" className="modal__error-text"></span>
-          <input
-            type="url"
-            className="modal__input modal__input_field_image-link"
-            id="card-input-link"
-            placeholder="Image link"
-            name="Image link"
-            required
-          />
-          <span id="card-input-link-error" className="modal__error-text"></span>
-        </PopupWithForm>
+          <Footer />
+          <PopupWithForm
+            name="edit-profile"
+            title="Edit Profile"
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+          >
+            <input
+              type="text"
+              className="modal__input modal__input_field_name"
+              id="name-input"
+              placeholder="Full name"
+              name="name"
+              minLength={2}
+              maxLength={40}
+              required
+            />
+            <span id="name-input-error" className="modal__error-text" />
+            <input
+              type="text"
+              className="modal__input modal__input_field_profession"
+              id="profession-input"
+              placeholder="Profession"
+              name="profession"
+              minLength={2}
+              maxLength={200}
+              required
+            />
+            <span id="profession-input-error" className="modal__error-text" />
+          </PopupWithForm>
+          <PopupWithForm
+            name="add-card"
+            title="New place"
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+          >
+            <input
+              type="text"
+              className="modal__input modal__input_field_title"
+              id="card-title-input"
+              placeholder="Title"
+              name="Title"
+              minLength="1"
+              maxLength="30"
+              required
+            />
+            <span id="card-title-input-error" className="modal__error-text"></span>
+            <input
+              type="url"
+              className="modal__input modal__input_field_image-link"
+              id="card-input-link"
+              placeholder="Image link"
+              name="Image link"
+              required
+            />
+            <span id="card-input-link-error" className="modal__error-text"></span>
+          </PopupWithForm>
 
-        <PopupWithForm
-          name="change-avatar"
-          title="Change profile picture"
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="url"
-            className="modal__input modal__input_field_profile-picture-link"
-            id="profile-picture-link"
-            placeholder="Profile picture link"
-            name="avatar"
-            required
-          />
-          <span id="profile-picture-link-error" className="modal__error-text"></span>
-        </PopupWithForm>
+          <PopupWithForm
+            name="change-avatar"
+            title="Change profile picture"
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+          >
+            <input
+              type="url"
+              className="modal__input modal__input_field_profile-picture-link"
+              id="profile-picture-link"
+              placeholder="Profile picture link"
+              name="avatar"
+              required
+            />
+            <span id="profile-picture-link-error" className="modal__error-text"></span>
+          </PopupWithForm>
 
-        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
+          <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

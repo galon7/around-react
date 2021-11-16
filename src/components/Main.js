@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Card from "./Card";
 import editPng from "../images/edit-img.png";
 
 function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick }) {
-  const [user, setUser] = useState({});
+  const user = React.useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -15,15 +16,6 @@ function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardCl
       })
       .catch((err) => console.log(`Error.....: ${err}`));
   }, []);
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setUser(data);
-      })
-      .catch((err) => console.log(`Error.....: ${err}`));
-  });
 
   return (
     <main>
