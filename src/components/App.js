@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { api } from "../utils/api";
+import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Main from "./Main";
@@ -13,7 +13,7 @@ function App() {
   const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
   const [isImagePopupOpen, openImagePopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [CurrentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     api
@@ -22,7 +22,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch((err) => console.log(`Error.....: ${err}`));
-  });
+  }, []);
 
   function handleEditProfileClick() {
     openEditProfilePopup(true);
@@ -49,7 +49,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={CurrentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
           <Header />
