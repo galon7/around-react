@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Api from "../utils/Api";
+import { api } from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Main from "./Main";
@@ -10,14 +10,6 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
-  const api = new Api({
-    baseUrl: "https://around.nomoreparties.co/v1/group-12",
-    headers: {
-      authorization: "e0cd9749-f008-4064-bc64-61e9ac8b0f57",
-      "Content-Type": "application/json",
-    },
-  });
-
   const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
   const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
