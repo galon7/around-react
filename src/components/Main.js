@@ -1,37 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { api } from "../utils/Api";
 import Card from "./Card";
 import editPng from "../images/edit-img.png";
 
-function Main({ onEditAvatarClick, onEditProfileClick, onAddPlaceClick, onCardClick }) {
+function Main({
+  onEditAvatarClick,
+  onEditProfileClick,
+  onAddPlaceClick,
+  onCardClick,
+  cards,
+  handleCardLike,
+  handleCardDelete,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => console.log(`Error.....: ${err}`));
-  }, []);
-
-  function handleCardLike(card) {
-    // Check one more time if this card was already liked
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    // Send a request to the API and getting the updated card data
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id);
-    const newCards = cards.filter((c) => c._id !== card._id);
-    setCards(newCards);
-  }
 
   return (
     <main>
