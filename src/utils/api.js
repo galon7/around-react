@@ -1,4 +1,4 @@
-class Api {
+export class Api {
   constructor(options) {
     this._headers = options.headers;
     this._baseUrl = options.baseUrl;
@@ -77,4 +77,4 @@ export const api = new Api({
   },
 });
 
-export default Api;
+// export default Api;
