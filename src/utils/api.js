@@ -48,13 +48,11 @@ class Api {
 
   changeLikeCardStatus(cardId, isLiked) {
     if (isLiked) {
-      console.log("aaaaaaa");
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: this._headers,
       }).then(this._getResponseData);
     } else {
-      console.log("bbbbb");
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
