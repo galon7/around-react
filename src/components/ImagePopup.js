@@ -1,3 +1,5 @@
+import React from "react";
+
 function ImagePopup({ card, isOpen, onClose }) {
   return (
     <div className={`modal modal_img ${isOpen && "modal_open"}`}>

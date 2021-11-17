@@ -1,3 +1,5 @@
+import React from "react";
+
 function PopupWithForm({ name, isOpen, onClose, title, children }) {
   return (
     <div className={`modal modal_type_${name} ${isOpen && "modal_open"}`}>
