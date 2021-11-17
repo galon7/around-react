@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
@@ -56,6 +57,13 @@ function App() {
     });
   }
 
+  function handleUpdateAvatar(newUrl) {
+    api.updateAvatar(newUrl).then((data) => {
+      setCurrentUser(data);
+      closeAllPopups();
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -76,6 +84,12 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
 
           <PopupWithForm
@@ -104,23 +118,6 @@ function App() {
               required
             />
             <span id="card-input-link-error" className="modal__error-text"></span>
-          </PopupWithForm>
-
-          <PopupWithForm
-            name="change-avatar"
-            title="Change profile picture"
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-          >
-            <input
-              type="url"
-              className="modal__input modal__input_field_profile-picture-link"
-              id="profile-picture-link"
-              placeholder="Profile picture link"
-              name="avatar"
-              required
-            />
-            <span id="profile-picture-link-error" className="modal__error-text"></span>
           </PopupWithForm>
 
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
