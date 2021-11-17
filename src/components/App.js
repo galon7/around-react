@@ -6,7 +6,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
-import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
@@ -49,14 +48,6 @@ function App() {
     openImagePopup(true);
   }
 
-  function handleUpdateUser() {
-    api.editProfile(currentUser).then((data) => {
-      console.log(currentUser);
-      setCurrentUser(data);
-      closeAllPopups();
-    });
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -70,13 +61,35 @@ function App() {
             onClose={closeAllPopups}
           />
           <Footer />
-
-          <EditProfilePopup
+          <PopupWithForm
+            name="edit-profile"
+            title="Edit Profile"
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-
+          >
+            <input
+              type="text"
+              className="modal__input modal__input_field_name"
+              id="name-input"
+              placeholder="Full name"
+              name="name"
+              minLength={2}
+              maxLength={40}
+              required
+            />
+            <span id="name-input-error" className="modal__error-text" />
+            <input
+              type="text"
+              className="modal__input modal__input_field_profession"
+              id="profession-input"
+              placeholder="Profession"
+              name="profession"
+              minLength={2}
+              maxLength={200}
+              required
+            />
+            <span id="profession-input-error" className="modal__error-text" />
+          </PopupWithForm>
           <PopupWithForm
             name="add-card"
             title="New place"
