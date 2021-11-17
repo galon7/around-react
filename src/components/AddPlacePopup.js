@@ -2,16 +2,29 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
-  const inputTitleRef = React.useRef();
-  const inputLinkRef = React.useRef();
+  const [title, setTitle] = React.useState("");
+  const [link, setLink] = React.useState("");
+
+  function handleTitleChange(e) {
+    setTitle(e.target.value);
+  }
+
+  function handleLinkChange(e) {
+    setLink(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlaceSubmit({
-      name: inputTitleRef.current.value,
-      link: inputLinkRef.current.value,
+      name: title,
+      link,
     });
   }
+
+  React.useEffect(() => {
+    setTitle("");
+    setLink("");
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -20,17 +33,19 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonText="Create"
     >
       <input
         type="text"
         className="modal__input modal__input_field_title"
         id="card-title-input"
         placeholder="Title"
-        name="Title"
+        name="title"
         minLength="1"
         maxLength="30"
         required
-        ref={inputTitleRef}
+        onChange={handleTitleChange}
+        value={title || ""}
       />
       <span id="card-title-input-error" className="modal__error-text"></span>
       <input
@@ -38,9 +53,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
         className="modal__input modal__input_field_image-link"
         id="card-input-link"
         placeholder="Image link"
-        name="Image link"
+        name="link"
         required
-        ref={inputLinkRef}
+        onChange={handleLinkChange}
+        value={link || ""}
       />
       <span id="card-input-link-error" className="modal__error-text"></span>
     </PopupWithForm>

@@ -7,7 +7,7 @@ function ImagePopup({ card, isOpen, onClose }) {
         <button type="button" className="modal__close" onClick={onClose} />
         <figure className="modal__figure">
           <img src={card ? card.link : {}} alt="Selected card" className="modal__image" />
-          <figcaption className="modal__caption" />
+          <figcaption className="modal__caption">{card ? card.name.toString() : ""}</figcaption>
         </figure>
       </div>
     </div>
