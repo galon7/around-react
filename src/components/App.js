@@ -49,9 +49,8 @@ function App() {
     openImagePopup(true);
   }
 
-  function handleUpdateUser() {
-    api.editProfile(currentUser).then((data) => {
-      console.log(currentUser);
+  function handleUpdateUser(userNew) {
+    api.editProfile(userNew).then((data) => {
       setCurrentUser(data);
       closeAllPopups();
     });
